@@ -1,6 +1,8 @@
+
 PROJECTS = [
+    # WEB DEVELOPMENT
     {
-        "id": 1,
+        "id": "web01",
         "name": "Personal Portfolio Website",
         "category": "Web",
         "required_skills": ["html", "css"],
@@ -8,11 +10,11 @@ PROJECTS = [
         "build_hours": 6,
         "cost": 0,
         "difficulty": "Beginner",
-        "description": "Build a personal website to showcase projects and skills.",
-        "reduced_scope": "Create a single-page portfolio with contact details."
+        "description": "Build a responsive portfolio showcasing projects, skills, and achievements.",
+        "reduced_scope": "Create a single-page portfolio with an introduction, skills, and project links."
     },
     {
-        "id": 2,
+        "id": "web02",
         "name": "Student Task Planner",
         "category": "Web",
         "required_skills": ["python", "html"],
@@ -20,11 +22,61 @@ PROJECTS = [
         "build_hours": 10,
         "cost": 0,
         "difficulty": "Beginner",
-        "description": "Organize assignments, tasks, and deadlines.",
-        "reduced_scope": "Build a task list with add and complete features."
+        "description": "Create a task planner with deadlines, priorities, and completion tracking.",
+        "reduced_scope": "Build a simple task list with add, complete, and delete actions."
     },
     {
-        "id": 3,
+        "id": "web03",
+        "name": "Weather Information Dashboard",
+        "category": "Web",
+        "required_skills": ["python", "html"],
+        "learning_hours": 6,
+        "build_hours": 12,
+        "cost": 0,
+        "difficulty": "Beginner",
+        "description": "Display weather information using a public weather API.",
+        "reduced_scope": "Search for one city and display its current weather."
+    },
+    {
+        "id": "web04",
+        "name": "Campus Event Management Portal",
+        "category": "Web",
+        "required_skills": ["python", "html", "css"],
+        "learning_hours": 8,
+        "build_hours": 18,
+        "cost": 0,
+        "difficulty": "Intermediate",
+        "description": "Let students browse events, register interest, and view event details.",
+        "reduced_scope": "Create an event listing page with category filters."
+    },
+    {
+        "id": "web05",
+        "name": "Accessibility Checker",
+        "category": "Web",
+        "required_skills": ["python", "html"],
+        "learning_hours": 7,
+        "build_hours": 15,
+        "cost": 0,
+        "difficulty": "Intermediate",
+        "description": "Inspect web pages for selected accessibility issues and explain improvements.",
+        "reduced_scope": "Check image alternative text and missing page titles in sample HTML."
+    },
+    {
+        "id": "web06",
+        "name": "Campus FAQ Website",
+        "category": "Web",
+        "required_skills": ["python", "html"],
+        "learning_hours": 6,
+        "build_hours": 12,
+        "cost": 0,
+        "difficulty": "Beginner",
+        "description": "Organize frequently asked questions about campus facilities and student services.",
+        "reduced_scope": "Create searchable FAQ entries grouped by topic."
+    },
+
+    # ARTIFICIAL INTELLIGENCE
+    {
+        "id": "ai01",
         "name": "Resume Feedback Assistant",
         "category": "AI",
         "required_skills": ["python"],
@@ -32,23 +84,11 @@ PROJECTS = [
         "build_hours": 14,
         "cost": 0,
         "difficulty": "Intermediate",
-        "description": "Compare resume skills with a job description.",
-        "reduced_scope": "Check a resume against a small list of required skills."
+        "description": "Extract resume text and provide structured feedback against a job description.",
+        "reduced_scope": "Accept pasted resume text and compare it with a job description using keywords."
     },
     {
-        "id": 4,
-        "name": "Student Performance Dashboard",
-        "category": "Data",
-        "required_skills": ["python"],
-        "learning_hours": 5,
-        "build_hours": 10,
-        "cost": 0,
-        "difficulty": "Beginner",
-        "description": "Visualize student marks and performance trends.",
-        "reduced_scope": "Display averages and simple charts from a CSV file."
-    },
-    {
-        "id": 5,
+        "id": "ai02",
         "name": "AI Study Question Generator",
         "category": "AI",
         "required_skills": ["python"],
@@ -56,11 +96,61 @@ PROJECTS = [
         "build_hours": 16,
         "cost": 0,
         "difficulty": "Intermediate",
-        "description": "Generate practice questions from study notes.",
-        "reduced_scope": "Generate questions from manually entered text."
+        "description": "Turn study notes into practice questions and concise revision summaries.",
+        "reduced_scope": "Generate questions from pasted notes using a language model API."
     },
     {
-        "id": 6,
+        "id": "ai03",
+        "name": "Image Classification Demo",
+        "category": "AI",
+        "required_skills": ["python"],
+        "learning_hours": 12,
+        "build_hours": 20,
+        "cost": 0,
+        "difficulty": "Intermediate",
+        "description": "Use a pretrained image model to classify uploaded images.",
+        "reduced_scope": "Classify images using an existing pretrained model without training a new one."
+    },
+    {
+        "id": "ai04",
+        "name": "Document Information Extractor",
+        "category": "AI",
+        "required_skills": ["python"],
+        "learning_hours": 9,
+        "build_hours": 16,
+        "cost": 0,
+        "difficulty": "Intermediate",
+        "description": "Extract selected fields from text-based documents and organize them into a table.",
+        "reduced_scope": "Extract dates, names, and amounts from a few sample text documents."
+    },
+    {
+        "id": "ai05",
+        "name": "Student FAQ Assistant",
+        "category": "AI",
+        "required_skills": ["python"],
+        "learning_hours": 7,
+        "build_hours": 14,
+        "cost": 0,
+        "difficulty": "Intermediate",
+        "description": "Answer student questions using a curated collection of approved FAQ information.",
+        "reduced_scope": "Build a keyword-based question matcher over a small FAQ dataset."
+    },
+    {
+        "id": "ai06",
+        "name": "Sentiment Analysis Dashboard",
+        "category": "AI",
+        "required_skills": ["python"],
+        "learning_hours": 8,
+        "build_hours": 15,
+        "cost": 0,
+        "difficulty": "Intermediate",
+        "description": "Analyze feedback text and summarize positive, neutral, and negative sentiment.",
+        "reduced_scope": "Analyze a small sample of feedback using a pretrained sentiment model."
+    },
+
+    # APP DEVELOPMENT
+    {
+        "id": "app01",
         "name": "Expense Tracker",
         "category": "App",
         "required_skills": ["python"],
@@ -68,47 +158,11 @@ PROJECTS = [
         "build_hours": 10,
         "cost": 0,
         "difficulty": "Beginner",
-        "description": "Record expenses and summarize spending.",
-        "reduced_scope": "Add expenses and show category totals."
+        "description": "Record expenses, categorize transactions, and summarize spending.",
+        "reduced_scope": "Build an expense entry form with category totals."
     },
     {
-        "id": 7,
-        "name": "Campus FAQ Assistant",
-        "category": "AI",
-        "required_skills": ["python"],
-        "learning_hours": 7,
-        "build_hours": 14,
-        "cost": 0,
-        "difficulty": "Intermediate",
-        "description": "Answer common campus questions from prepared information.",
-        "reduced_scope": "Search a small set of FAQs using keywords."
-    },
-    {
-        "id": 8,
-        "name": "Weather Information Dashboard",
-        "category": "Web",
-        "required_skills": ["python", "html"],
-        "learning_hours": 6,
-        "build_hours": 12,
-        "cost": 0,
-        "difficulty": "Intermediate",
-        "description": "Present weather information in a clear dashboard.",
-        "reduced_scope": "Display sample weather data in a simple dashboard."
-    },
-    {
-        "id": 9,
-        "name": "CSV Data Cleaner",
-        "category": "Data",
-        "required_skills": ["python"],
-        "learning_hours": 4,
-        "build_hours": 8,
-        "cost": 0,
-        "difficulty": "Beginner",
-        "description": "Find missing values and clean spreadsheet data.",
-        "reduced_scope": "Upload a CSV and report missing values."
-    },
-    {
-        "id": 10,
+        "id": "app02",
         "name": "Habit Tracker",
         "category": "App",
         "required_skills": ["python"],
@@ -116,23 +170,11 @@ PROJECTS = [
         "build_hours": 9,
         "cost": 0,
         "difficulty": "Beginner",
-        "description": "Track daily habits and view progress.",
-        "reduced_scope": "Track habits for one week."
+        "description": "Track daily habits and display completion history.",
+        "reduced_scope": "Track three habits using a simple daily checklist."
     },
     {
-        "id": 11,
-        "name": "Image Classification Demo",
-        "category": "AI",
-        "required_skills": ["python"],
-        "learning_hours": 12,
-        "build_hours": 20,
-        "cost": 0,
-        "difficulty": "Advanced",
-        "description": "Demonstrate image classification using a pretrained model.",
-        "reduced_scope": "Classify images using a small pretrained model."
-    },
-    {
-        "id": 12,
+        "id": "app03",
         "name": "Interactive Quiz App",
         "category": "App",
         "required_skills": ["python"],
@@ -140,7 +182,192 @@ PROJECTS = [
         "build_hours": 7,
         "cost": 0,
         "difficulty": "Beginner",
-        "description": "Create quizzes with scores and feedback.",
-        "reduced_scope": "Build a short multiple-choice quiz."
-    }
+        "description": "Create topic-based quizzes with scoring and answer explanations.",
+        "reduced_scope": "Build a quiz with five fixed questions and a final score."
+    },
+    {
+        "id": "app04",
+        "name": "Personal Bookmark Manager",
+        "category": "App",
+        "required_skills": ["python"],
+        "learning_hours": 5,
+        "build_hours": 11,
+        "cost": 0,
+        "difficulty": "Beginner",
+        "description": "Save, categorize, search, and revisit useful website links.",
+        "reduced_scope": "Store links with titles and categories in a local file."
+    },
+    {
+        "id": "app05",
+        "name": "Study Session Planner",
+        "category": "App",
+        "required_skills": ["python"],
+        "learning_hours": 5,
+        "build_hours": 12,
+        "cost": 0,
+        "difficulty": "Beginner",
+        "description": "Plan study sessions around subjects, available time, and deadlines.",
+        "reduced_scope": "Create a weekly study timetable with editable tasks."
+    },
+    {
+        "id": "app06",
+        "name": "Inventory Tracker",
+        "category": "App",
+        "required_skills": ["python"],
+        "learning_hours": 7,
+        "build_hours": 15,
+        "cost": 0,
+        "difficulty": "Intermediate",
+        "description": "Track stock quantities, item categories, and low-stock alerts.",
+        "reduced_scope": "Manage item names, quantities, and minimum stock levels."
+    },
+
+    # DATA SCIENCE
+    {
+        "id": "data01",
+        "name": "Student Performance Dashboard",
+        "category": "Data",
+        "required_skills": ["python"],
+        "learning_hours": 5,
+        "build_hours": 10,
+        "cost": 0,
+        "difficulty": "Beginner",
+        "description": "Explore marks, attendance, and subject-level performance using charts.",
+        "reduced_scope": "Analyze a sample CSV and display three charts."
+    },
+    {
+        "id": "data02",
+        "name": "CSV Data Cleaner",
+        "category": "Data",
+        "required_skills": ["python"],
+        "learning_hours": 4,
+        "build_hours": 8,
+        "cost": 0,
+        "difficulty": "Beginner",
+        "description": "Detect missing values, duplicate rows, and inconsistent data formats.",
+        "reduced_scope": "Clean duplicate rows and missing values in one CSV file."
+    },
+    {
+        "id": "data03",
+        "name": "Public Transport Analysis",
+        "category": "Data",
+        "required_skills": ["python"],
+        "learning_hours": 7,
+        "build_hours": 15,
+        "cost": 0,
+        "difficulty": "Intermediate",
+        "description": "Analyze public transport datasets to identify usage patterns and peak periods.",
+        "reduced_scope": "Visualize daily or hourly trends in an existing dataset."
+    },
+    {
+        "id": "data04",
+        "name": "Air Quality Dashboard",
+        "category": "Data",
+        "required_skills": ["python"],
+        "learning_hours": 7,
+        "build_hours": 14,
+        "cost": 0,
+        "difficulty": "Intermediate",
+        "description": "Visualize air-quality measurements and compare trends over time.",
+        "reduced_scope": "Create charts from a downloaded air-quality CSV dataset."
+    },
+    {
+        "id": "data05",
+        "name": "Retail Sales Analyzer",
+        "category": "Data",
+        "required_skills": ["python"],
+        "learning_hours": 6,
+        "build_hours": 12,
+        "cost": 0,
+        "difficulty": "Beginner",
+        "description": "Summarize revenue, product performance, and monthly sales trends.",
+        "reduced_scope": "Analyze one sample sales CSV and show the top products."
+    },
+    {
+        "id": "data06",
+        "name": "Survey Insights Dashboard",
+        "category": "Data",
+        "required_skills": ["python"],
+        "learning_hours": 6,
+        "build_hours": 12,
+        "cost": 0,
+        "difficulty": "Beginner",
+        "description": "Turn survey responses into charts and a concise findings summary.",
+        "reduced_scope": "Summarize multiple-choice responses from one CSV file."
+    },
+
+    # AUTOMATION
+    {
+        "id": "auto01",
+        "name": "File Organizer",
+        "category": "Any",
+        "required_skills": ["python"],
+        "learning_hours": 3,
+        "build_hours": 6,
+        "cost": 0,
+        "difficulty": "Beginner",
+        "description": "Organize files into folders based on file types and naming rules.",
+        "reduced_scope": "Organize files in one test folder by extension."
+    },
+    {
+        "id": "auto02",
+        "name": "Spreadsheet Report Generator",
+        "category": "Any",
+        "required_skills": ["python"],
+        "learning_hours": 5,
+        "build_hours": 10,
+        "cost": 0,
+        "difficulty": "Beginner",
+        "description": "Convert spreadsheet data into a formatted summary report.",
+        "reduced_scope": "Read one CSV and generate a basic summary file."
+    },
+    {
+        "id": "auto03",
+        "name": "Deadline Reminder Tool",
+        "category": "Any",
+        "required_skills": ["python"],
+        "learning_hours": 4,
+        "build_hours": 8,
+        "cost": 0,
+        "difficulty": "Beginner",
+        "description": "Track upcoming deadlines and display reminders based on dates.",
+        "reduced_scope": "List tasks due within the next seven days."
+    },
+    {
+        "id": "auto04",
+        "name": "Website Change Monitor",
+        "category": "Any",
+        "required_skills": ["python"],
+        "learning_hours": 7,
+        "build_hours": 14,
+        "cost": 0,
+        "difficulty": "Intermediate",
+        "description": "Compare permitted public webpage snapshots and report selected changes.",
+        "reduced_scope": "Compare two saved text snapshots and highlight differences."
+    },
+    {
+        "id": "auto05",
+        "name": "Email Attachment Sorter",
+        "category": "Any",
+        "required_skills": ["python"],
+        "learning_hours": 6,
+        "build_hours": 12,
+        "cost": 0,
+        "difficulty": "Intermediate",
+        "description": "Organize downloaded email attachments using file type and naming rules.",
+        "reduced_scope": "Sort files from a local test folder without connecting to an email account."
+    },
+    {
+        "id": "auto06",
+        "name": "Duplicate File Finder",
+        "category": "Any",
+        "required_skills": ["python"],
+        "learning_hours": 4,
+        "build_hours": 8,
+        "cost": 0,
+        "difficulty": "Beginner",
+        "description": "Identify duplicate files by comparing their content hashes.",
+        "reduced_scope": "Find duplicate files inside a sample folder and report them without deleting anything."
+    },
 ]
+
