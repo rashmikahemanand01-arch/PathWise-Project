@@ -1,3 +1,4 @@
+
 from datetime import date
 from projects import PROJECTS
 
@@ -20,7 +21,7 @@ def evaluate_project(project, student):
     score = 100
 
     if available_hours < required_hours:
-        score -= 35
+        score -= 30
 
     if available_hours < required_hours * 1.25:
         score -= 10
@@ -28,19 +29,23 @@ def evaluate_project(project, student):
     if not enough_budget:
         score -= 30
 
-    score -= min(len(missing_skills) * 10, 30)
-    score = max(0, score)
+    if required_skills:
+        matched_skills = required_skills & student_skills
+        skill_match = len(matched_skills) / len(required_skills)
+        score -= round((1 - skill_match) * 25)
+
+    score = max(0, min(100, score))
 
     if not enough_budget or available_hours < required_hours * 0.6:
         status = "Unrealistic"
-    elif enough_time and enough_budget and len(missing_skills) <= 1:
+    elif enough_time and enough_budget and not missing_skills:
         status = "Feasible"
     else:
         status = "Tight"
 
     reasons = [
         f"Estimated effort: {required_hours} hours.",
-        f"Available time: {available_hours:.1f} hours."
+        f"Available time before the deadline: {available_hours:.1f} hours."
     ]
 
     if missing_skills:
@@ -48,18 +53,16 @@ def evaluate_project(project, student):
             "Skills to learn: " + ", ".join(missing_skills) + "."
         )
     else:
-        reasons.append(
-            "Your listed skills cover the project prerequisites."
-        )
+        reasons.append("Your listed skills cover the project prerequisites.")
 
     if not enough_budget:
         reasons.append("The estimated cost exceeds your budget.")
     else:
-        reasons.append("The estimated cost fits your budget.")
+        reasons.append("The estimated project cost fits your budget.")
 
     if available_hours < required_hours:
         reasons.append(
-            "Consider the reduced-scope version to lower the workload."
+            "Consider the smaller-scope alternative to reduce the workload."
         )
 
     return {
@@ -77,9 +80,10 @@ def recommend_projects(student):
     results = []
 
     for project in PROJECTS:
-        if (
-            student["category"] != "Any"
-            and project["category"] != student["category"]
+        category = student["category"]
+
+        if category != "Any" and project["category"] not in (
+            category, "Any"
         ):
             continue
 
@@ -88,9 +92,12 @@ def recommend_projects(student):
     results.sort(
         key=lambda result: (
             result["status"] == "Feasible",
-            result["score"]
+            result["score"],
+            -len(result["missing_skills"]),
+            -result["required_hours"]
         ),
         reverse=True
     )
 
-    return results[:3]
+    return results[:6]
+
