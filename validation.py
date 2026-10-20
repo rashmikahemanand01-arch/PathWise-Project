@@ -1,3 +1,4 @@
+
 from datetime import date
 
 
@@ -5,18 +6,33 @@ def validate_project_inputs(form):
     errors = []
 
     category = form.get("category", "").strip()
-    skills = form.get("skills", "").strip()
+    skills = form.getlist("skills")
     deadline_text = form.get("deadline", "").strip()
     hours_text = form.get("hours", "").strip()
     budget_text = form.get("budget", "").strip()
 
     allowed_categories = {"AI", "Web", "App", "Data", "Any"}
 
+    allowed_skills = {
+        "Python", "C", "C++", "Java", "JavaScript",
+        "TypeScript", "HTML", "CSS", "SQL", "Flask",
+        "Streamlit", "Django", "React", "Node.js",
+        "Pandas", "NumPy", "Scikit-learn", "TensorFlow",
+        "OpenCV", "NLP", "APIs", "Git", "File Handling",
+        "Excel", "SQLite", "Firebase", "JSON", "Requests"
+    }
+
     if category not in allowed_categories:
         errors.append("Please select a valid project category.")
 
+    skills = [
+        skill.strip()
+        for skill in skills
+        if skill.strip() in allowed_skills
+    ]
+
     if not skills:
-        errors.append("Please enter your current skills.")
+        skills = []
 
     hours = None
     budget = None
@@ -50,14 +66,13 @@ def validate_project_inputs(form):
 
     data = {
         "category": category,
-        "skills": [
-            skill.strip().lower()
-            for skill in skills.split(",")
-            if skill.strip()
-        ],
+        "skills": [skill.lower() for skill in skills],
         "hours_per_week": hours,
         "budget": budget,
         "deadline": deadline,
     }
 
     return data, []
+
+ 
+
