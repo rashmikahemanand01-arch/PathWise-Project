@@ -458,3 +458,98 @@ form button {
         font-size: 0.72rem;
     }
 }
+
+/* PathWise: Professional skills checklist */
+
+.skills-fieldset {
+    border: 1px solid #dbe3ef;
+    border-radius: 14px;
+    padding: 22px;
+    margin: 24px 0;
+    min-width: 0;
+    background: #ffffff;
+}
+
+.skills-fieldset legend {
+    padding: 0 8px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #172554;
+}
+
+.field-description {
+    margin: 0 0 18px;
+    color: #64748b;
+    font-size: 0.92rem;
+    line-height: 1.6;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin: 16px 0;
+}
+
+.skill-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    min-height: 46px;
+    padding: 10px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 9px;
+    background: #f8fafc;
+    color: #334155;
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.35;
+    cursor: pointer;
+    transition: border-color 0.2s ease,
+                background-color 0.2s ease;
+}
+
+.skill-option:hover {
+    border-color: #93c5fd;
+    background: #eff6ff;
+}
+
+.skill-option input[type="checkbox"] {
+    flex: 0 0 16px;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    accent-color: #2563eb;
+    cursor: pointer;
+}
+
+.skill-option:has(input:checked) {
+    border-color: #60a5fa;
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+.skills-fieldset small {
+    display: block;
+    margin-top: 14px;
+    color: #64748b;
+    font-size: 0.82rem;
+    line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+    .skills-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .skills-fieldset {
+        padding: 16px;
+    }
+}
+
+@media (max-width: 420px) {
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+}
