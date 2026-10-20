@@ -99,5 +99,5 @@ def recommend_projects(student):
         reverse=True
     )
 
-    return results[:12]
+    return results[:20]
 
