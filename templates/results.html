@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Project Recommendations | PathWise</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header>
+        <a href="/" class="brand">PathWise</a>
+        <span>Project Feasibility Engine</span>
+    </header>
+
+    <main class="results-container">
+        <p class="eyebrow">YOUR RESULTS</p>
+        <h1>Your project shortlist</h1>
+
+        <p>
+            Here are the best matches for your current requirements.
+        </p>
+
+        <section class="summary-panel">
+            <h2>Your requirements</h2>
+
+            <p><strong>Category:</strong> {{ student.category }}</p>
+            <p><strong>Skills:</strong> {{ student.skills | join(", ") }}</p>
+            <p>
+                <strong>Available time:</strong>
+                {{ student.hours_per_week }} hours/week
+            </p>
+            <p><strong>Budget:</strong> ₹{{ student.budget }}</p>
+            <p><strong>Deadline:</strong> {{ student.deadline }}</p>
+        </section>
+
+        {% if results %}
+            {% for result in results %}
+            <section class="result-card">
+
+                <div class="result-top">
+                    <span class="project-category">
+                        {{ result.project.category }}
+                    </span>
+
+                    <span class="status-{{ result.status | lower }}">
+                        {{ result.status }}
+                    </span>
+                </div>
+
+                <h2>{{ loop.index }}. {{ result.project.name }}</h2>
+
+                <p>{{ result.project.description }}</p>
+
+                <div class="metrics-grid">
+                    <div class="metric">
+                        <strong>{{ result.score }}/100</strong>
+                        <span>Fit score</span>
+                    </div>
+
+                    <div class="metric">
+                        <strong>{{ result.required_hours }} hrs</strong>
+                        <span>Estimated effort</span>
+                    </div>
+
+                    <div class="metric">
+                        <strong>{{ result.available_hours }} hrs</strong>
+                        <span>Available time</span>
+                    </div>
+
+                    <div class="metric">
+                        <strong>₹{{ result.project.cost }}</strong>
+                        <span>Estimated cost</span>
+                    </div>
+                </div>
+
+                <h3>Why this result?</h3>
+
+                <ul class="reason-list">
+                    {% for reason in result.reasons %}
+                    <li>{{ reason }}</li>
+                    {% endfor %}
+                </ul>
+
+                {% if result.missing_skills %}
+                <div class="skill-gap">
+                    <strong>Skills to learn:</strong>
+                    {{ result.missing_skills | join(", ") }}
+                </div>
+                {% endif %}
+
+                <div class="scope-panel">
+                    <strong>Smaller-scope alternative</strong>
+                    <p>{{ result.project.reduced_scope }}</p>
+                </div>
+
+            </section>
+            {% endfor %}
+        {% else %}
+            <p>
+                No projects matched your selected category.
+                Try another category.
+            </p>
+        {% endif %}
+
+        <div class="results-actions">
+            <a class="primary-button" href="/form">
+                Change Requirements
+            </a>
+
+            <a class="secondary-link" href="/">
+                Back to Home
+            </a>
+        </div>
+
+        <p class="disclaimer">
+            Fit scores are estimates based on your inputs, not guarantees
+            of project success. Actual effort may vary.
+        </p>
+    </main>
+
+    <footer>
+        PathWise · A student project feasibility tool
+    </footer>
+</body>
+</html>
