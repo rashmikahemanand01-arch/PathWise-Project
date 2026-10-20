@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tell Us About Your Project | PathWise</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <a href="/">PathWise</a>
+        <span>Project Feasibility Engine</span>
+    </header>
+
+    <main class="form-container">
+        <p class="eyebrow">YOUR STARTING POINT</p>
+        <h1>Let's find projects that fit you.</h1>
+        <p>Tell us about your current skills and constraints.</p>
+
+        {% if errors %}
+        <div class="error-box">
+            <strong>Please correct the following:</strong>
+            <ul>
+                {% for error in errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <form action="/recommend" method="POST">
+            <label for="category">Preferred project category</label>
+            <select id="category" name="category" required>
+                <option value="">Choose a category</option>
+                <option value="AI">Artificial Intelligence</option>
+                <option value="Web">Web Development</option>
+                <option value="App">App Development</option>
+                <option value="Data">Data Science</option>
+                <option value="Any">Any Category</option>
+            </select>
+
+            <label for="skills">Your current skills</label>
+            <textarea id="skills" name="skills"
+                placeholder="Example: Python, HTML, CSS"
+                required></textarea>
+            <small>Separate your skills with commas.</small>
+
+            <label for="hours">Available hours per week</label>
+            <input id="hours" name="hours" type="number"
+                min="1" max="80" required>
+
+            <label for="budget">Your project budget (₹)</label>
+            <input id="budget" name="budget" type="number"
+                min="0" step="0.01" required>
+
+            <label for="deadline">Your completion deadline</label>
+            <input id="deadline" name="deadline" type="date" required>
+
+            <button class="primary-button" type="submit">
+                Find My Projects →
+            </button>
+        </form>
+
+        <a class="back-link" href="/">← Back to homepage</a>
+    </main>
+
+    <footer>PathWise · A student project feasibility tool</footer>
+</body>
+</html>
