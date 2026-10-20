@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +16,7 @@
     <main class="form-container">
         <p class="eyebrow">YOUR STARTING POINT</p>
         <h1>Let's find projects that fit you.</h1>
-        <p>Tell us about your current skills and constraints.</p>
+        <p>Tell us about your current skills, available time, budget, and deadline.</p>
 
         {% if errors %}
         <div class="error-box">
@@ -29,6 +30,7 @@
         {% endif %}
 
         <form action="/recommend" method="POST">
+
             <label for="category">Preferred project category</label>
             <select id="category" name="category" required>
                 <option value="">Choose a category</option>
@@ -39,19 +41,138 @@
                 <option value="Any">Any Category</option>
             </select>
 
-            <label for="skills">Your current skills</label>
-            <textarea id="skills" name="skills"
-                placeholder="Example: Python, HTML, CSS"
-                required></textarea>
-            <small>Separate your skills with commas.</small>
+            <fieldset class="skills-fieldset">
+                <legend>Your current skills</legend>
+                <p class="field-description">
+                    Select all languages and technologies you already know.
+                    Leave unfamiliar skills unchecked.
+                </p>
+
+                <div class="skills-grid">
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="Python">
+                        Python
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="C">
+                        C
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="C++">
+                        C++
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="Java">
+                        Java
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="JavaScript">
+                        JavaScript
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="TypeScript">
+                        TypeScript
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="HTML">
+                        HTML
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="CSS">
+                        CSS
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="SQL">
+                        SQL
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="Flask">
+                        Flask
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="Streamlit">
+                        Streamlit
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="Django">
+                        Django
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="React">
+                        React
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="Node.js">
+                        Node.js
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="Pandas">
+                        Pandas
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="NumPy">
+                        NumPy
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="Scikit-learn">
+                        Scikit-learn
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="TensorFlow">
+                        TensorFlow
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="OpenCV">
+                        OpenCV
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="NLP">
+                        NLP
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="APIs">
+                        APIs
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="Git">
+                        Git / GitHub
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="File Handling">
+                        File Handling
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="Excel">
+                        Excel
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="SQLite">
+                        SQLite
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="Firebase">
+                        Firebase
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="JSON">
+                        JSON
+                    </label>
+                    <label class="skill-option">
+                        <input type="checkbox" name="skills" value="Requests">
+                        Python Requests
+                    </label>
+                </div>
+
+                <small>Select the skills you currently know. You can leave all unchecked if you are starting from zero.</small>
+            </fieldset>
 
             <label for="hours">Available hours per week</label>
             <input id="hours" name="hours" type="number"
-                min="1" max="80" required>
+                   min="1" max="80" required>
 
             <label for="budget">Your project budget (₹)</label>
             <input id="budget" name="budget" type="number"
-                min="0" step="0.01" required>
+                   min="0" step="0.01" required>
 
             <label for="deadline">Your completion deadline</label>
             <input id="deadline" name="deadline" type="date" required>
@@ -67,3 +188,5 @@
     <footer>PathWise · A student project feasibility tool</footer>
 </body>
 </html>
+
+          
