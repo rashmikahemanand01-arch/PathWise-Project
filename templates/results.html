@@ -51,6 +51,26 @@
 </div>
 </section>
 
+<section class="detail-section">
+    <h3>How your fit score was calculated</h3>
+
+    <ul>
+        {% for factor, points in result.score_breakdown.items() %}
+            <li>
+                <strong>{{ factor }}:</strong>
+                {{ points }} points
+            </li>
+        {% endfor %}
+    </ul>
+
+    <p>
+        The score combines your skill match, available time,
+        budget and project difficulty. It is a planning aid,
+        not a guarantee of project success.
+    </p>
+</section>
+
+
        
            
           
