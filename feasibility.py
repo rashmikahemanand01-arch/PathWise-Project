@@ -6,28 +6,16 @@ from projects import PROJECTS
 
 
 def evaluate_project(project, student):
-    # 1. Calculate time available before the deadline.
-    days_left = (student["deadline"] - date.today()).days
+    # 1. Calculate the time available before the deadline.
+    days_left = max(
+        0, (student["deadline"] - date.today()).days
+    )
 
     available_hours = (
         student["hours_per_week"] * days_left / 7
     )
 
-    # 2. Estimate project effort.
-    learning_hours = project["learning_hours"]
-    build_hours = project["build_hours"]
-
-    testing_hours = max(2, ceil(build_hours * 0.15))
-    deployment_hours = max(1, ceil(build_hours * 0.10))
-
-    required_hours = (
-        learning_hours
-        + build_hours
-        + testing_hours
-        + deployment_hours
-    )
-
-    # 3. Match skills without case-sensitivity problems.
+    # 2. Match skills before estimating personalized learning effort.
     student_skills = {
         skill.strip().lower()
         for skill in student["skills"]
@@ -47,32 +35,48 @@ def evaluate_project(project, student):
     else:
         skill_match = 1.0
 
-    # 4. Calculate time fit.
-    if required_hours > 0:
-        time_ratio = available_hours / required_hours
-    else:
-        time_ratio = 1.0
+    # 3. Estimate effort for this project and this student.
+    base_learning_hours = project["learning_hours"]
+    learning_bonus = min(len(missing_skills) * 2, 12)
 
-    if time_ratio >= 1.5:
-        time_score = 35
-    elif time_ratio >= 1.15:
-        time_score = 30
-    elif time_ratio >= 1.0:
-        time_score = 25
-    elif time_ratio >= 0.75:
-        time_score = 17
-    elif time_ratio >= 0.5:
-        time_score = 9
-    else:
-        time_score = 3
+    learning_hours = base_learning_hours + learning_bonus
+    build_hours = project["build_hours"]
+
+    testing_hours = max(2, ceil(build_hours * 0.15))
+    deployment_hours = max(1, ceil(build_hours * 0.10))
+
+    required_hours = (
+        learning_hours
+        + build_hours
+        + testing_hours
+        + deployment_hours
+    )
+
+    # 4. Calculate time fit continuously, not in broad score bands.
+    time_ratio = (
+        available_hours / required_hours
+        if required_hours > 0
+        else 1.5
+    )
+
+    time_score = round(
+        35 * min(max(time_ratio, 0), 1.5) / 1.5
+    )
 
     # 5. Calculate budget fit.
-    estimated_cost = project["cost"]
-    enough_budget = student["budget"] >= estimated_cost
+    estimated_cost = float(project.get("cost", 0))
+    budget = float(student["budget"])
 
-    budget_score = 15 if enough_budget else 0
+    enough_budget = budget >= estimated_cost
 
-    # 6. Calculate skill and difficulty scores.
+    if estimated_cost <= 0:
+        budget_score = 15
+    else:
+        budget_score = round(
+            15 * min(max(budget / estimated_cost, 0), 1)
+        )
+
+    # 6. Calculate skill and difficulty fit.
     skill_score = round(skill_match * 35)
 
     difficulty = project["difficulty"].strip().lower()
@@ -84,17 +88,19 @@ def evaluate_project(project, student):
     else:
         difficulty_score = 7
 
-    # 7. Calculate overall fit score.
-    score = (
-        skill_score
-        + time_score
-        + budget_score
-        + difficulty_score
+    # 7. Calculate the overall fit score.
+    score = max(
+        0,
+        min(
+            100,
+            skill_score
+            + time_score
+            + budget_score
+            + difficulty_score,
+        ),
     )
 
-    score = max(0, min(100, round(score)))
-
-    # 8. Determine feasibility status.
+    # 8. Determine feasibility.
     enough_time = available_hours >= required_hours
 
     if not enough_budget or time_ratio < 0.5:
@@ -104,7 +110,7 @@ def evaluate_project(project, student):
     else:
         status = "Tight"
 
-    # 9. Explain the score and assessment.
+    # 9. Explain the recommendation.
     reasons = [
         (
             f"Effort breakdown: {learning_hours} learning, "
@@ -115,13 +121,15 @@ def evaluate_project(project, student):
             f"Total estimated effort: {required_hours} hours; "
             f"available time: {available_hours:.1f} hours."
         ),
+        (
+            f"Your current skills match "
+            f"{round(skill_match * 100)}% of the listed prerequisites."
+        ),
     ]
 
     if missing_skills:
         reasons.append(
-            "Skills to learn: "
-            + ", ".join(missing_skills)
-            + "."
+            "Skills to learn: " + ", ".join(missing_skills) + "."
         )
     else:
         reasons.append(
@@ -139,23 +147,24 @@ def evaluate_project(project, student):
         )
     else:
         reasons.append(
-            "Your estimated schedule includes some room for revisions."
+            "Your schedule has some room for revisions and debugging."
         )
 
     if not enough_budget:
         reasons.append(
             f"The estimated cost of ₹{estimated_cost:.0f} "
-            "exceeds your budget."
+            f"exceeds your budget of ₹{budget:.0f}."
         )
     else:
         reasons.append(
-            f"The listed cost of ₹{estimated_cost:.0f} fits your budget, "
-            "assuming the listed tools are sufficient."
+            f"The estimated cost of ₹{estimated_cost:.0f} "
+            "fits your budget. Verify actual service costs."
         )
 
     if difficulty == "advanced":
         reasons.append(
-            "Build a small proof of concept before integrating all features."
+            "Build a small proof of concept before integrating "
+            "all features."
         )
     elif difficulty == "intermediate":
         reasons.append(
@@ -163,10 +172,10 @@ def evaluate_project(project, student):
         )
     else:
         reasons.append(
-            "Start with the main feature and test it before polishing the UI."
+            "Start with the main feature and test it before polishing."
         )
 
-    # 10. Identify project risks.
+    # 10. Identify risks.
     risks = []
 
     if missing_skills:
@@ -188,14 +197,13 @@ def evaluate_project(project, student):
 
     if difficulty == "advanced":
         risks.append(
-            "Complexity risk: validate a small prototype "
-            "before building the complete system."
+            "Complexity risk: validate a small prototype first."
         )
 
     if not enough_budget:
         risks.append(
-            "Budget risk: verify service and deployment costs "
-            "before choosing paid tools."
+            "Budget risk: check whether free tools can replace "
+            "paid services."
         )
 
     if not risks:
@@ -204,7 +212,7 @@ def evaluate_project(project, student):
             "Test features as you build them."
         )
 
-    # 11. Create practical milestones.
+    # 11. Create project milestones.
     scope_hours = max(1, ceil(build_hours * 0.10))
     core_build_hours = max(1, build_hours - scope_hours)
 
@@ -212,8 +220,8 @@ def evaluate_project(project, student):
         {
             "title": "Define the project scope",
             "description": (
-                "Choose essential features and identify what "
-                "will be excluded from the first version."
+                "Choose essential features and decide what to exclude "
+                "from the first version."
             ),
             "hours": scope_hours,
         },
@@ -228,30 +236,28 @@ def evaluate_project(project, student):
         {
             "title": "Build the core feature",
             "description": (
-                "Implement the main workflow and test it "
-                "with representative inputs."
+                "Implement the main workflow and test representative inputs."
             ),
             "hours": core_build_hours,
         },
         {
             "title": "Test and fix issues",
             "description": (
-                "Check normal inputs, invalid inputs and edge cases. "
-                "Fix the most important issues."
+                "Check normal inputs, invalid inputs, and edge cases."
             ),
             "hours": testing_hours,
         },
         {
             "title": "Prepare the final version",
             "description": (
-                "Deploy if applicable, review the user experience, "
+                "Deploy if applicable, review usability, "
                 "and document limitations."
             ),
             "hours": deployment_hours,
         },
     ]
 
-    # 12. Return everything required by the results page.
+    # 12. Return all values used by results.html.
     return {
         "project": project,
         "score": score,
@@ -302,8 +308,6 @@ def recommend_projects(student):
 
     return results[:20]
 
-
-    
         
         
              
